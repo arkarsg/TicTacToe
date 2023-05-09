@@ -7,15 +7,19 @@ let gameActive = true;
 let currentPlayer = "X";
 let gameState = ["", "", "", "", "", "", "", ""];
 
-let hasAI = true;
+let hasAI = false;
 const humanPlayer = "X";
 const botPlayer = "O";
+const opponentDisplay = document.querySelector('.opponent--status');
+const botMessage = () => "Playing against bot";
+const playerMessage = () => "Playing against another player";
 
 const winningMessage = () => `Player ${currentPlayer} has won!`;
 const drawMessage = () => "Game ended in a draw!";
 const currentPlayerTurn = () => `It is ${currentPlayer}'s turn.`;
 
 statusDisplay.innerHTML = currentPlayerTurn();
+opponentDisplay.innerHTML = playerMessage();
 
 /**
  * Updates the game state based on the clicked cell, then updates the UI
@@ -94,8 +98,18 @@ function handleRestartGame() {
                .forEach(cell => cell.innerHTML = "");
 }
 
+function removeAI() {
+    hasAI = false;
+    opponentDisplay.innerHTML = playerMessage();
+}
+
 function initialiseAI() {
+    if (hasAI) {
+        removeAI();
+        return;
+    }
     hasAI = true;
+    opponentDisplay.innerHTML = botMessage();
 }
 
 document.querySelectorAll('.cell').forEach(cell =>

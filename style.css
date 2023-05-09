@@ -24,3 +24,34 @@ section {
     font-size: 60px;
 }
 
+.game--bot {
+    background-color: #f4511e;
+    color: white;
+    font-size: 16px;
+    border-radius: 12px;
+    opacity: 0.6;
+    transition: 0.3s;
+    border: none;
+    padding: 16px 32px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.game--bot:hover {
+    opacity: 1;
+}
+
+.game--bot:disabled {
+    opacity: 1;
+}
+
+.game--restart {
+    background-color: #424242;
+    color: white;
+    font-size: 16px;
+    border-radius: 12px;
+    border: none;
+    padding: 16px 32px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
