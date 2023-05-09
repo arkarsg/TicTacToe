@@ -1,10 +1,15 @@
-import { winCheck, drawCheck } from './utils';
+import { winCheck, drawCheck } from './utils.js';
+import { getBestMove } from './ai.js';
 
 const statusDisplay = document.querySelector('.game--status');
 
 let gameActive = true;
 let currentPlayer = "X";
 let gameState = ["", "", "", "", "", "", "", ""];
+
+let hasAI = true;
+const humanPlayer = "X";
+const botPlayer = "O";
 
 const winningMessage = () => `Player ${currentPlayer} has won!`;
 const drawMessage = () => "Game ended in a draw!";
@@ -68,6 +73,13 @@ function handleCellClick(clickedCellEvent) {
 
     handleCellPlayed(clickedCell, clickedCellIndex);
     handleResultValidation();
+
+    if (hasAI && currentPlayer === botPlayer && gameActive) {
+        const botMove = getBestMove(gameState);
+        const cell = document.querySelector(`[data-cell-index="${botMove}"]`);
+        handleCellPlayed(cell, botMove);
+        handleResultValidation();
+    }
 }
 
 /**
@@ -82,8 +94,15 @@ function handleRestartGame() {
                .forEach(cell => cell.innerHTML = "");
 }
 
+function initialiseAI() {
+    hasAI = true;
+}
+
 document.querySelectorAll('.cell').forEach(cell =>
     cell.addEventListener('click', handleCellClick));
 
 document.querySelector('.game--restart').addEventListener('click',
     handleRestartGame);
+
+document.querySelector('.game--bot').addEventListener('click',
+    initialiseAI);

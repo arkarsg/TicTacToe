@@ -51,3 +51,14 @@ export function winCheck(gameState, currentPlayer) {
 export function drawCheck(gameState) {
     return (!gameState.includes(""));
 }
+
+/**
+ * Inverts the board/
+ * @param gameState 1D array representation of the board
+ */
+export function invertBoard(gameState) {
+    gameState.forEach((element, index) => {
+        gameState[index] = element === "X" ? "O" : "X";
+    })
+    return gameState;
+}
